@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ehcache name="kfs-dwh-cache" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="true"
+	monitoring="autodetect" dynamicConfig="true">
+	
+	<cache name="ooeValidation" 
+		maxEntriesLocalHeap="20000"
+		maxEntriesLocalDisk="0" 
+		eternal="false" 
+		diskSpoolBufferSizeMB="0" 
+		timeToIdleSeconds="14400" 
+		timeToLiveSeconds="14400" 
+		memoryStoreEvictionPolicy="LFU" 
+		transactionalMode="off">
+		<persistence strategy="none"/>
+	</cache>
+	
+	<cache name="goeValidation" 
+		maxEntriesLocalHeap="20000"
+		maxEntriesLocalDisk="0" 
+		eternal="false" 
+		diskSpoolBufferSizeMB="0" 
+		timeToIdleSeconds="14400" 
+		timeToLiveSeconds="14400" 
+		memoryStoreEvictionPolicy="LFU" 
+		transactionalMode="off">
+		<persistence strategy="none"/>
+	</cache>
+	
+	<cache name="currentFiscalYear" 
+		maxEntriesLocalHeap="10"
+		maxEntriesLocalDisk="0" 
+		eternal="false" 
+		diskSpoolBufferSizeMB="0" 
+		timeToIdleSeconds="14400" 
+		timeToLiveSeconds="14400" 
+		memoryStoreEvictionPolicy="LFU" 
+		transactionalMode="off">
+		<persistence strategy="none"/>
+	</cache>
+
+	<cache name="objectCodeEditAccount" 
+		maxEntriesLocalHeap="50000"
+		maxEntriesLocalDisk="0" 
+		eternal="false" 
+		diskSpoolBufferSizeMB="0" 
+		timeToIdleSeconds="14400" 
+		timeToLiveSeconds="14400" 
+		memoryStoreEvictionPolicy="LFU" 
+		transactionalMode="off">
+		<persistence strategy="none"/>
+	</cache>
+	
+	<cache name="objectCodeEditAccountRanges" 
+		maxEntriesLocalHeap="50000"
+		maxEntriesLocalDisk="0" 
+		eternal="false" 
+		diskSpoolBufferSizeMB="0" 
+		timeToIdleSeconds="14400" 
+		timeToLiveSeconds="14400" 
+		memoryStoreEvictionPolicy="LFU" 
+		transactionalMode="off">
+		<persistence strategy="none"/>
+	</cache>
+	
+	<cache name="objectCodeEditObjectCodeAccountNumberExclusions" 
+		maxEntriesLocalHeap="50000"
+		maxEntriesLocalDisk="0" 
+		eternal="false" 
+		diskSpoolBufferSizeMB="0" 
+		timeToIdleSeconds="14400" 
+		timeToLiveSeconds="14400" 
+		memoryStoreEvictionPolicy="LFU" 
+		transactionalMode="off">
+		<persistence strategy="none"/>
+	</cache>
+	
+	<cache name="objectCodeEditGOERules" 
+		maxEntriesLocalHeap="50000"
+		maxEntriesLocalDisk="0" 
+		eternal="false" 
+		diskSpoolBufferSizeMB="0" 
+		timeToIdleSeconds="14400" 
+		timeToLiveSeconds="14400" 
+		memoryStoreEvictionPolicy="LFU" 
+		transactionalMode="off">
+		<persistence strategy="none"/>
+	</cache>
+
+	<cache name="objectCodeEditOOERules" 
+		maxEntriesLocalHeap="50000"
+		maxEntriesLocalDisk="0" 
+		eternal="false" 
+		diskSpoolBufferSizeMB="0" 
+		timeToIdleSeconds="14400" 
+		timeToLiveSeconds="14400" 
+		memoryStoreEvictionPolicy="LFU" 
+		transactionalMode="off">
+		<persistence strategy="none"/>
+	</cache>
+
+	<cache name="objectCodeEditObjectCode" 
+		maxEntriesLocalHeap="150000"
+		maxEntriesLocalDisk="0" 
+		eternal="false" 
+		diskSpoolBufferSizeMB="0" 
+		timeToIdleSeconds="14400" 
+		timeToLiveSeconds="14400" 
+		memoryStoreEvictionPolicy="LFU" 
+		transactionalMode="off">
+		<persistence strategy="none"/>
+	</cache>
+	
+	<cache name="singleOriginationCodeValidation" 
+		maxEntriesLocalHeap="50"
+		maxEntriesLocalDisk="0" 
+		eternal="false" 
+		diskSpoolBufferSizeMB="0" 
+		timeToIdleSeconds="14400" 
+		timeToLiveSeconds="14400" 
+		memoryStoreEvictionPolicy="LFU" 
+		transactionalMode="off">
+		<persistence strategy="none"/>
+	</cache>
+	
+	<cache name="singleChartOfAccountsCodeValidation" 
+		maxEntriesLocalHeap="10"
+		maxEntriesLocalDisk="0" 
+		eternal="false" 
+		diskSpoolBufferSizeMB="0" 
+		timeToIdleSeconds="14400" 
+		timeToLiveSeconds="14400" 
+		memoryStoreEvictionPolicy="LFU" 
+		transactionalMode="off">
+		<persistence strategy="none"/>
+	</cache>
+	
+	<cache name="singleAccountValidation" 
+		maxEntriesLocalHeap="20000"
+		maxEntriesLocalDisk="0" 
+		eternal="false" 
+		diskSpoolBufferSizeMB="0" 
+		timeToIdleSeconds="14400" 
+		timeToLiveSeconds="14400" 
+		memoryStoreEvictionPolicy="LFU" 
+		transactionalMode="off">
+		<persistence strategy="none"/>
+	</cache>
+	
+	<cache name="singleSubAccountValidation" 
+		maxEntriesLocalHeap="10000"
+		maxEntriesLocalDisk="0" 
+		eternal="false" 
+		diskSpoolBufferSizeMB="0" 
+		timeToIdleSeconds="14400" 
+		timeToLiveSeconds="14400" 
+		memoryStoreEvictionPolicy="LFU" 
+		transactionalMode="off">
+		<persistence strategy="none"/>
+	</cache>
+	
+	<cache name="singleObjectCodeValidation" 
+		maxEntriesLocalHeap="150000"
+		maxEntriesLocalDisk="0" 
+		eternal="false" 
+		diskSpoolBufferSizeMB="0" 
+		timeToIdleSeconds="14400" 
+		timeToLiveSeconds="14400" 
+		memoryStoreEvictionPolicy="LFU" 
+		transactionalMode="off">
+		<persistence strategy="none"/>
+	</cache>
+	
+	<cache name="singleSubObjectCodeValidation" 
+		maxEntriesLocalHeap="20000"
+		maxEntriesLocalDisk="0" 
+		eternal="false" 
+		diskSpoolBufferSizeMB="0" 
+		timeToIdleSeconds="14400" 
+		timeToLiveSeconds="14400" 
+		memoryStoreEvictionPolicy="LFU" 
+		transactionalMode="off">
+		<persistence strategy="none"/>
+	</cache>
+	
+	<cache name="singleProjectCodeValidation" 
+		maxEntriesLocalHeap="50000"
+		maxEntriesLocalDisk="0" 
+		eternal="false" 
+		diskSpoolBufferSizeMB="0" 
+		timeToIdleSeconds="14400" 
+		timeToLiveSeconds="14400" 
+		memoryStoreEvictionPolicy="LFU" 
+		transactionalMode="off">
+		<persistence strategy="none"/>
+	</cache>
+
+	<cache name="kfsToUcTranslation_TranslateKFSAccountingLine" 
+		maxEntriesLocalHeap="100000"
+		maxEntriesLocalDisk="0" 
+		eternal="false" 
+		diskSpoolBufferSizeMB="0" 
+		timeToIdleSeconds="14400" 
+		timeToLiveSeconds="14400" 
+		memoryStoreEvictionPolicy="LFU" 
+		transactionalMode="off">
+		<persistence strategy="none"/>
+	</cache>
+
+	<cache name="kfsToUcTranslation_TopLevelReportsToObjectCode" 
+		maxEntriesLocalHeap="50000"
+		maxEntriesLocalDisk="0" 
+		eternal="false" 
+		diskSpoolBufferSizeMB="0" 
+		timeToIdleSeconds="14400" 
+		timeToLiveSeconds="14400" 
+		memoryStoreEvictionPolicy="LFU" 
+		transactionalMode="off">
+		<persistence strategy="none"/>
+	</cache>
+	
+	<cache name="kfsToUcTranslation_UCSubCode" 
+		maxEntriesLocalHeap="1000"
+		maxEntriesLocalDisk="0" 
+		eternal="false" 
+		diskSpoolBufferSizeMB="0" 
+		timeToIdleSeconds="14400" 
+		timeToLiveSeconds="14400" 
+		memoryStoreEvictionPolicy="LFU" 
+		transactionalMode="off">
+		<persistence strategy="none"/>
+	</cache>
+	
+	<cache name="kfsToUcTranslation_Account" 
+		maxEntriesLocalHeap="100000"
+		maxEntriesLocalDisk="0" 
+		eternal="false" 
+		diskSpoolBufferSizeMB="0" 
+		timeToIdleSeconds="14400" 
+		timeToLiveSeconds="14400" 
+		memoryStoreEvictionPolicy="LFU" 
+		transactionalMode="off">
+		<persistence strategy="none"/>
+	</cache>
+	
+	<cache name="kfsToUcTranslation_ObjectCode" 
+		maxEntriesLocalHeap="50000"
+		maxEntriesLocalDisk="0" 
+		eternal="false" 
+		diskSpoolBufferSizeMB="0" 
+		timeToIdleSeconds="14400" 
+		timeToLiveSeconds="14400" 
+		memoryStoreEvictionPolicy="LFU" 
+		transactionalMode="off">
+		<persistence strategy="none"/>
+	</cache>
+	
+	<cache name="kfsToUcTranslation_BasicAccountingCategoryCode" 
+		maxEntriesLocalHeap="1000"
+		maxEntriesLocalDisk="0" 
+		eternal="false" 
+		diskSpoolBufferSizeMB="0" 
+		timeToIdleSeconds="14400" 
+		timeToLiveSeconds="14400" 
+		memoryStoreEvictionPolicy="LFU" 
+		transactionalMode="off">
+		<persistence strategy="none"/>
+	</cache>
+	
+	<cache name="kfsToUcTranslation_UCUnexpendedBalanceAccountNumber" 
+		maxEntriesLocalHeap="50000"
+		maxEntriesLocalDisk="0" 
+		eternal="false" 
+		diskSpoolBufferSizeMB="0" 
+		timeToIdleSeconds="14400" 
+		timeToLiveSeconds="14400" 
+		memoryStoreEvictionPolicy="LFU" 
+		transactionalMode="off">
+		<persistence strategy="none"/>
+	</cache>
+	
+		
+</ehcache> 

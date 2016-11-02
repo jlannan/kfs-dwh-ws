@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:ctx="http://www.springframework.org/schema/context" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+	xmlns:cache="http://www.springframework.org/schema/cache" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
+
+
+	<!-- jasypt -->
+	
+	<bean class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig" id="environmentVariablesEncryptorConfig">
+		<property name="algorithm" value="PBEWithMD5AndDES" />
+		<property name="passwordEnvName" value="FUSE_ENCRYPTION_PASSWORD" />
+	</bean>
+
+	<bean id="configurationEncryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+		<property name="config" ref="environmentVariablesEncryptorConfig" />
+	</bean>
+
+	<bean class="org.jasypt.spring31.properties.EncryptablePropertyPlaceholderConfigurer" id="propertyConfigurer">
+		<constructor-arg ref="configurationEncryptor" />
+		<property name="locations">
+			<list>
+				<value>file:/adcom/sfw/fuse-esb/local-etc/jasypt.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- ehcache -->
+	
+	<cache:annotation-driven />
+
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager" p:cache-manager-ref="ehcache" />
+
+	<bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" p:config-location="ehcache.xml" />
+
+
+	<!-- server -->
+	
+	<jaxrs:server id="restServiceServer" address="/DWHRESTServer">
+		<jaxrs:serviceBeans>
+			<ref bean="restService" />
+		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+			<bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
+		</jaxrs:providers>
+	</jaxrs:server>
+
+	<bean id="restService" class="edu.uci.oit.kfs.dwh.webservices.DWHRestServerImpl">
+		<property name="kfsToUcTranslationService" ref="kfsToUcTranslationService" />
+		<property name="accountingLineValidationService" ref="accountingLineValidationService" />
+	</bean>
+
+
+	<!-- translation -->
+	
+	<bean id="kfsToUcTranslationService" class="edu.uci.oit.kfs.dwh.webservices.translation.service.impl.KfsToUcTranslationServiceImpl">
+		<property name="kfsToUcTranslationDao" ref="kfsToUcTranslationDao" />
+	</bean>
+
+	<bean id="kfsToUcTranslationDao" parent="baseDAO" class="edu.uci.oit.kfs.dwh.webservices.translation.dataaccess.impl.KfsToUcTranslationDaoImpl" />
+
+
+	<!-- validation -->
+	
+	<bean id="singleObjectValidationDao" class="edu.uci.oit.kfs.dwh.webservices.validation.dataaccess.impl.SingleObjectValidationDaoImpl" parent="baseDAO" />
+
+	<bean id="objectEditValidationDao" class="edu.uci.oit.kfs.dwh.webservices.objectedit.dataaccess.impl.ObjectEditValidationDaoImpl" parent="baseDAO" />
+
+	<bean id="originObjectEditValidationDao" class="edu.uci.oit.kfs.dwh.webservices.objectedit.dataaccess.impl.OriginObjectEditValidationDaoImpl" parent="objectEditValidationDao" />
+
+	<bean id="globalObjectEditValidationDao" class="edu.uci.oit.kfs.dwh.webservices.objectedit.dataaccess.impl.GlobalObjectEditValidationDaoImpl" parent="objectEditValidationDao" />
+
+	<bean id="objectEditValidationServiceBase" abstract="true" class="edu.uci.oit.kfs.dwh.webservices.objectedit.service.ObjectEditValidationServiceBase">
+		<property name="objectEditValidationDao" ref="objectEditValidationDao" />
+	</bean>
+
+	<bean id="singleObjectValidationService" class="edu.uci.oit.kfs.dwh.webservices.validation.service.impl.SingleObjectValidationServiceImpl">
+		<property name="singleObjectValidationDao" ref="singleObjectValidationDao" />
+	</bean>
+
+	<bean id="originObjectEditValidationService" class="edu.uci.oit.kfs.dwh.webservices.objectedit.service.impl.OriginObjectEditValidationServiceImpl" parent="objectEditValidationServiceBase">
+		<property name="originObjectEditValidationDao" ref="originObjectEditValidationDao" />
+	</bean>
+
+	<bean id="globalObjectEditValidationService" class="edu.uci.oit.kfs.dwh.webservices.objectedit.service.impl.GlobalObjectEditValidationServiceImpl" parent="objectEditValidationServiceBase">
+		<property name="globalObjectEditValidationDao" ref="globalObjectEditValidationDao" />
+	</bean>
+	
+	<!-- accounting line validation -->
+	
+	<bean id="accountingLineValidationService" class="edu.uci.oit.kfs.dwh.webservices.validation.service.impl.AccountingLineValidationServiceImpl">
+		<property name="singleObjectValidationService" ref="singleObjectValidationService" />
+		<property name="originObjectEditValidationService" ref="originObjectEditValidationService" />
+		<property name="globalObjectEditValidationService" ref="globalObjectEditValidationService" />
+	</bean>
+
+	<!-- base beans -->
+
+	<bean id="baseDAO" abstract="true" class="edu.uci.oit.kfs.dwh.webservices.dataaccess.impl.DataAccessObjectBase">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+		<property name="url" value="jdbc:sqlserver://localhost:1433;databaseName=dwhs_ods" />
+		<property name="username" value="dwhreader" />
+		<property name="password" value="${password.dwhreader}" />
+	</bean>
+
+</beans>
